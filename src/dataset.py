@@ -64,34 +64,4 @@ def getDataSet_1():
 df = getDataSet_1()
 
 print(df.shape)
-# # print(df.info())
-# # All Columns
-# # print(df.columns)
-# # is there any null values
-# # print(df.isnull().sum())
 
-# # Total Number of Actors
-# actors = df['actor_id'].nunique()
-# print(actors)
-# # Total numbers of Emotions
-# print(df['emotion'].nunique())
-
-# # Total numbers of intensity
-# print(df['intensity'].nunique())
-
-# # Advance Pandas Concept
-# print(" Data Processing")
-
-# # Check all the intensity of the Anger Mood
-# anger= df[df['emotion_code']=="ANG"][['intensity',"emotion"]]
-# dis= df[df['emotion_code']=="DIS"][['intensity',"emotion"]]
-# fea= df[df['emotion_code']=="FEA"][['intensity',"emotion"]]
-# hap= df[df['emotion_code']=="HAP"][['intensity',"emotion"]]
-# neu= df[df['emotion_code']=="NEU"][['intensity',"emotion"]]
-# sad= df[df['emotion_code']=="SAD"][['intensity',"emotion"]]
-# total = len(anger)+len(dis)+len(fea)+len(hap)+len(neu)+len(sad)
-# print(total)
-
-# # Check author id has how many emotion
-# author = df[(df['actor_id']==1001) & (df['emotion_code']=="ANG")].value_counts().count()
-# print("Total Author is ",author)
