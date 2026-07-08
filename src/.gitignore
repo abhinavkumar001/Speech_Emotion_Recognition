@@ -1,0 +1,13 @@
+**pycache**/
+*.pyc
+.venv/
+venv/
+.env
+.ipynb_checkpoints/
+*.ipynb
+dataSet/AudioWAV/
+models/
+*.pth
+*.pt
+*.h5
+.DS_Store

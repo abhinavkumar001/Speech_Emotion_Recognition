@@ -1,0 +1,97 @@
+import pandas as pd
+from pathlib import Path
+
+# data_dir = Path("../dataSet/AudioWAV")
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+data_dir = BASE_DIR / "dataSet" / "AudioWAV"
+
+emotion_map = {
+    "ANG": "angry",
+    "DIS": "disgust",
+    "FEA": "fear",
+    "HAP": "happy",
+    "NEU": "neutral",
+    "SAD": "sad"
+}
+
+sentence_map = {
+    "IEO": "It's eleven o'clock.",
+    "TIE": "That is exactly what happened.",
+    "IOM": "I'm on my way to the meeting.",
+    "IWW": "I wonder what this is about.",
+    "TAI": "The airplane is almost full.",
+    "MTI": "Maybe tomorrow it will be cold.",
+    "IWL": "I would like a new alarm clock.",
+    "ITH": "I think I have a doctor's appointment.",
+    "DFA": "Don't forget a jacket.",
+    "ITS": "I think I've seen this before.",
+    "TSI": "The surface is slick.",
+    "WSI": "We'll stop in a couple of minutes."
+}
+
+intensity_map = {
+    "LO": "Low intensity",
+    "MD": "Medium intensity",
+    "HI": "High intensity",
+    "XX": "Unspecified intensity"
+    }
+
+
+def getRecords(dir):
+    records = []
+    for file in dir.glob("*.wav"):
+        parts = file.stem.split("_")
+        if len(parts)!=4:
+            continue
+        actor_id, sentence, emotion_code, intensity = parts
+        records.append({
+            "file_path": str(file),
+            "actor_id": int(actor_id),
+            "sentence_code": sentence,
+            "sentence": sentence_map.get(sentence,pd.NA),
+            "emotion_code": emotion_code,
+            "emotion": emotion_map.get(emotion_code, pd.NA),
+            "intensity_code": intensity,
+            "intensity": intensity_map.get(intensity,pd.NA)
+        })
+    return records
+
+def getDataSet_1():
+    df = pd.DataFrame(getRecords(dir=data_dir))
+    return df
+
+df = getDataSet_1()
+
+print(df.shape)
+# # print(df.info())
+# # All Columns
+# # print(df.columns)
+# # is there any null values
+# # print(df.isnull().sum())
+
+# # Total Number of Actors
+# actors = df['actor_id'].nunique()
+# print(actors)
+# # Total numbers of Emotions
+# print(df['emotion'].nunique())
+
+# # Total numbers of intensity
+# print(df['intensity'].nunique())
+
+# # Advance Pandas Concept
+# print(" Data Processing")
+
+# # Check all the intensity of the Anger Mood
+# anger= df[df['emotion_code']=="ANG"][['intensity',"emotion"]]
+# dis= df[df['emotion_code']=="DIS"][['intensity',"emotion"]]
+# fea= df[df['emotion_code']=="FEA"][['intensity',"emotion"]]
+# hap= df[df['emotion_code']=="HAP"][['intensity',"emotion"]]
+# neu= df[df['emotion_code']=="NEU"][['intensity',"emotion"]]
+# sad= df[df['emotion_code']=="SAD"][['intensity',"emotion"]]
+# total = len(anger)+len(dis)+len(fea)+len(hap)+len(neu)+len(sad)
+# print(total)
+
+# # Check author id has how many emotion
+# author = df[(df['actor_id']==1001) & (df['emotion_code']=="ANG")].value_counts().count()
+# print("Total Author is ",author)
